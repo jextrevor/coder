@@ -1,1 +1,50 @@
-instring = prompt("Please enter the string to encode/decode");outstring = "";decode = false;for(var i = 0; i < instring.length; i++){if(instring.charCodeAt(i) == 1 || instring.charCodeAt(i) == 2 || instring.charCodeAt(i) == 4 || instring.charCodeAt(i) == 5 || instring.charCodeAt(i) == 6 || instring.charCodeAt(i) == 7 || instring.charCodeAt(i) == 8 || instring.charCodeAt(i) == 18 || instring.charCodeAt(i) == 19 || instring.charCodeAt(i) == 11 || instring.charCodeAt(i) == 12 || instring.charCodeAt(i) == 20 || instring.charCodeAt(i) == 14 || instring.charCodeAt(i) == 15 || instring.charCodeAt(i) == 16 || instring.charCodeAt(i) == 17){decode = true;}}if(decode == false){beginstring = prompt("Please enter the first half of the enclosing string");endstring = prompt("Please enter the second half of the enclosing string");outstring += beginstring;for(var i = 0; i < instring.length; i++){code = instring.charCodeAt(i);binaryfromcode = code.toString(16);for(var e = 0; e < binaryfromcode.length; e++){codetoadd = 2;if(binaryfromcode.charAt(e) == "0"){codetoadd = 1;}if(binaryfromcode.charAt(e) == "2"){codetoadd = 4;}if(binaryfromcode.charAt(e) == "3"){codetoadd = 5;}if(binaryfromcode.charAt(e) == "4"){codetoadd = 6;}if(binaryfromcode.charAt(e) == "5"){codetoadd = 7;}if(binaryfromcode.charAt(e) == "6"){codetoadd = 8;}if(binaryfromcode.charAt(e) == "7"){codetoadd = 18;}if(binaryfromcode.charAt(e) == "8"){codetoadd = 19;}if(binaryfromcode.charAt(e) == "9"){codetoadd = 11;}if(binaryfromcode.charAt(e) == "a"){codetoadd = 12;}if(binaryfromcode.charAt(e) == "b"){codetoadd = 20;}if(binaryfromcode.charAt(e) == "c"){codetoadd = 14;}if(binaryfromcode.charAt(e) == "d"){codetoadd = 15;}if(binaryfromcode.charAt(e) == "e"){codetoadd = 16;}if(binaryfromcode.charAt(e) == "f"){codetoadd = 17;}outstring += String.fromCharCode(codetoadd);}outstring += String.fromCharCode(3);}outstring += endstring;alert(outstring);}else{for(var i = 0; i < instring.length; i++){if(instring.charCodeAt(i) == 1 || instring.charCodeAt(i) == 2 || instring.charCodeAt(i) == 4 || instring.charCodeAt(i) == 5 || instring.charCodeAt(i) == 6 || instring.charCodeAt(i) == 7 || instring.charCodeAt(i) == 8 || instring.charCodeAt(i) == 18 || instring.charCodeAt(i) == 19 || instring.charCodeAt(i) == 11 || instring.charCodeAt(i) == 12 || instring.charCodeAt(i) == 20 || instring.charCodeAt(i) == 14 || instring.charCodeAt(i) == 15 || instring.charCodeAt(i) == 16 || instring.charCodeAt(i) == 17){binarycode = "";for(var e = i; e > 0; e++){codetoadd = "1";if(instring.charCodeAt(e) == 1){codetoadd = "0";}if(instring.charCodeAt(e) == 4){codetoadd = "2";}if(instring.charCodeAt(e) == 5){codetoadd = "3";}if(instring.charCodeAt(e) == 6){codetoadd = "4";}if(instring.charCodeAt(e) == 7){codetoadd = "5";}if(instring.charCodeAt(e) == 8){codetoadd = "6";}if(instring.charCodeAt(e) == 18){codetoadd = "7";}if(instring.charCodeAt(e) == 19){codetoadd = "8";}if(instring.charCodeAt(e) == 11){codetoadd = "9";}if(instring.charCodeAt(e) == 12){codetoadd = "A";}if(instring.charCodeAt(e) == 20){codetoadd = "B";}if(instring.charCodeAt(e) == 14){codetoadd = "C";}if(instring.charCodeAt(e) == 15){codetoadd = "D";}if(instring.charCodeAt(e) == 16){codetoadd = "E";}if(instring.charCodeAt(e) == 17){codetoadd = "F";}if(instring.charCodeAt(e) == 3){break;}binarycode += codetoadd;i++;}outstring += String.fromCharCode(parseInt(binarycode,16));}}alert(outstring);}
+(function(){
+    instring = prompt("Enter the string to encode/decode");
+    outstring = "";
+    characters = [8203,8291];
+    decode = false;
+    characters.forEach(function(number){
+        if(instring.indexOf(String.fromCharCode(number))!=-1){
+            decode = true;
+        }
+    });
+    inarray = instring.split('');
+    if(decode){
+        binarystring = "";
+        inarray.forEach(function(character){
+            if(character.charCodeAt(0) == characters[0]){
+                binarystring += "0";
+            }
+            else if(character.charCodeAt(0) == characters[1]){
+                binarystring += "1";
+            }
+        });
+        binarychunks = binarystring.match(/.{1,16}/g);
+        binarychunks.forEach(function(chunk){
+            charcode = parseInt(chunk,2);
+            outstring += String.fromCharCode(charcode);
+        });
+    }
+    else{
+        outstring = "[";
+        binaryout = "";
+        inarray.forEach(function(character){
+            binarystring = character.charCodeAt(0).toString(2);
+            while(binarystring.length < 16){
+                binarystring = "0" + binarystring;
+            }
+            binaryout += binarystring;
+        });
+        binaryout = binaryout.split('');
+        binaryout.forEach(function(character){
+            if(character == "0"){
+                outstring += String.fromCharCode(characters[0]);
+            }
+            if(character == "1"){
+                outstring += String.fromCharCode(characters[1]);
+            }
+        });
+        outstring += "]";
+    }
+    alert(outstring);
+})();
