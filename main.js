@@ -46,5 +46,5 @@
         });
         outstring += "]";
     }
-    alert(outstring);
+    prompt("So you can copy...", outstring);
 })();
