@@ -1,4 +1,5 @@
 from pynput import keyboard
+import clipboard
 controller = keyboard.Controller()
 string = ""
 binaryout = ""
@@ -24,10 +25,10 @@ def on_release(key):
         try:
             string += key.char
             print ord(key.char)
+            controller.press(keyboard.Key.backspace)
+            controller.release(keyboard.Key.backspace)
         except:
             pass
-        controller.press(keyboard.Key.backspace)
-        controller.release(keyboard.Key.backspace)
     return True
 
 def unicodetype(character):
@@ -50,10 +51,15 @@ for char in string:
 print binaryout
 for char in binaryout:
     if char == "0":
-        unicodetype(characters[0])
+        outstring += unichr(characters[0])
+        #unicodetype(characters[0])
     else:
-        unicodetype(characters[1])
-
+        outstring += unichr(characters[1])
+        #unicodetype(characters[1])
+clipboard.copy(outstring)
+controller.press(keyboard.Key.ctrl_l)
+controller.press("v")
+controller.release("v")
+controller.release(keyboard.Key.ctrl_l)
 #convert the string to invisible characters
 #type the invisible characters
-controller.type(":)")

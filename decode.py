@@ -16,4 +16,4 @@ binarychunks = pattern.findall(binarystring)
 for chunk in binarychunks:
     charcode = int(chunk,2)
     outstring += unichr(charcode)
-controller.type(outstring)
+clipboard.copy(outstring)
