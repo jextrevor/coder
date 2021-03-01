@@ -24,7 +24,7 @@ def on_release(key):
     elif yes == True:
         try:
             string += key.char
-            print ord(key.char)
+            print(ord(key.char))
             controller.press(keyboard.Key.backspace)
             controller.release(keyboard.Key.backspace)
         except:
@@ -48,13 +48,13 @@ with keyboard.Listener(
     listener.join()
 for char in string:
     binaryout += "{0:016b}".format(ord(char))
-print binaryout
+print(binaryout)
 for char in binaryout:
     if char == "0":
-        outstring += unichr(characters[0])
+        outstring += chr(characters[0])
         #unicodetype(characters[0])
     else:
-        outstring += unichr(characters[1])
+        outstring += chr(characters[1])
         #unicodetype(characters[1])
 clipboard.copy(outstring)
 controller.press(keyboard.Key.ctrl_l)
